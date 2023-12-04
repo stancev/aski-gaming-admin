@@ -4,7 +4,7 @@
   "info": {
     "singularName": "company",
     "pluralName": "companies",
-    "displayName": "company",
+    "displayName": "Company",
     "description": ""
   },
   "options": {
@@ -38,11 +38,31 @@
       "mappedBy": "companies"
     },
     "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "country": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "claimed": {
+      "type": "boolean",
+      "default": false
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
