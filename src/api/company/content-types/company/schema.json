@@ -25,7 +25,7 @@
     "employees": {
       "type": "integer"
     },
-    "countires": {
+    "countries": {
       "type": "integer"
     },
     "website": {

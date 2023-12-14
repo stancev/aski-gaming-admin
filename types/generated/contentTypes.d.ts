@@ -729,7 +729,7 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
     description: Attribute.Text;
     established: Attribute.Integer;
     employees: Attribute.Integer;
-    countires: Attribute.Integer;
+    countries: Attribute.Integer;
     website: Attribute.String;
     categories: Attribute.Relation<
       'api::company.company',
