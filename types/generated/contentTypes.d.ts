@@ -362,6 +362,150 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    companies: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::company.company'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCompanyCompany extends Schema.CollectionType {
+  collectionName: 'companies';
+  info: {
+    singularName: 'company';
+    pluralName: 'companies';
+    displayName: 'Company';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    established: Attribute.Integer;
+    employees: Attribute.Integer;
+    countries: Attribute.Integer;
+    website: Attribute.String;
+    categories: Attribute.Relation<
+      'api::company.company',
+      'manyToMany',
+      'api::category.category'
+    >;
+    logo: Attribute.Media;
+    country: Attribute.String & Attribute.Required;
+    state: Attribute.String;
+    city: Attribute.String & Attribute.Required;
+    claimed: Attribute.Boolean & Attribute.DefaultTo<false>;
+    featured: Attribute.Boolean & Attribute.DefaultTo<false>;
+    awards: Attribute.JSON;
+    certificates: Attribute.JSON;
+    licences: Attribute.JSON;
+    reviews: Attribute.Relation<
+      'api::company.company',
+      'oneToMany',
+      'api::review.review'
+    >;
+    similarCompanies: Attribute.Relation<
+      'api::company.company',
+      'oneToMany',
+      'api::company.company'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::company.company',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::company.company',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReviewReview extends Schema.CollectionType {
+  collectionName: 'reviews';
+  info: {
+    singularName: 'review';
+    pluralName: 'reviews';
+    displayName: 'Review';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    rating: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 5;
+      }>;
+    company: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'api::company.company'
+    >;
+    user: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -631,7 +775,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -660,136 +803,28 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
+    reviews: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCategoryCategory extends Schema.CollectionType {
-  collectionName: 'categories';
-  info: {
-    singularName: 'category';
-    pluralName: 'categories';
-    displayName: 'Category';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    companies: Attribute.Relation<
-      'api::category.category',
-      'manyToMany',
-      'api::company.company'
+      'oneToMany',
+      'api::review.review'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::category.category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::category.category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCompanyCompany extends Schema.CollectionType {
-  collectionName: 'companies';
-  info: {
-    singularName: 'company';
-    pluralName: 'companies';
-    displayName: 'Company';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    description: Attribute.Text;
-    established: Attribute.Integer;
-    employees: Attribute.Integer;
-    countries: Attribute.Integer;
-    website: Attribute.String;
-    categories: Attribute.Relation<
-      'api::company.company',
-      'manyToMany',
-      'api::category.category'
-    >;
-    logo: Attribute.Media;
-    country: Attribute.String & Attribute.Required;
+    country: Attribute.String;
     state: Attribute.String;
-    city: Attribute.String & Attribute.Required;
-    claimed: Attribute.Boolean & Attribute.DefaultTo<false>;
-    featured: Attribute.Boolean & Attribute.DefaultTo<false>;
+    city: Attribute.String;
+    company: Attribute.String;
+    position: Attribute.String;
+    department: Attribute.String;
+    profilePicture: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::company.company',
+      'plugin::users-permissions.user',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::company.company',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiReviewReview extends Schema.CollectionType {
-  collectionName: 'reviews';
-  info: {
-    singularName: 'review';
-    pluralName: 'reviews';
-    displayName: 'Review';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
-    description: Attribute.Text & Attribute.Required;
-    rating: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 5;
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::review.review',
+      'plugin::users-permissions.user',
       'oneToOne',
       'admin::user'
     > &
@@ -807,15 +842,15 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::category.category': ApiCategoryCategory;
+      'api::company.company': ApiCompanyCompany;
+      'api::review.review': ApiReviewReview;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::category.category': ApiCategoryCategory;
-      'api::company.company': ApiCompanyCompany;
-      'api::review.review': ApiReviewReview;
     }
   }
 }

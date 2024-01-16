@@ -4,7 +4,8 @@
   "info": {
     "singularName": "review",
     "pluralName": "reviews",
-    "displayName": "Review"
+    "displayName": "Review",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,6 +25,18 @@
       "required": true,
       "max": 5,
       "min": 1
+    },
+    "company": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company",
+      "inversedBy": "reviews"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reviews"
     }
   }
 }
