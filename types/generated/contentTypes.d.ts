@@ -742,6 +742,9 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
     city: Attribute.String & Attribute.Required;
     claimed: Attribute.Boolean & Attribute.DefaultTo<false>;
     featured: Attribute.Boolean & Attribute.DefaultTo<false>;
+    certificates: Attribute.JSON;
+    licences: Attribute.JSON;
+    awards: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

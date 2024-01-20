@@ -63,6 +63,15 @@
     "featured": {
       "type": "boolean",
       "default": false
+    },
+    "certificates": {
+      "type": "json"
+    },
+    "licences": {
+      "type": "json"
+    },
+    "awards": {
+      "type": "json"
     }
   }
 }
