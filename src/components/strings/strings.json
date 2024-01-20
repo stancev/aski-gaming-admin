@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_strings_strings",
+  "info": {
+    "displayName": "Strings"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

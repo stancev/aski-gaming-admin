@@ -41,9 +41,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "country": {
       "type": "string",
@@ -64,14 +62,25 @@
       "type": "boolean",
       "default": false
     },
+    "awards": {
+      "type": "json"
+    },
     "certificates": {
       "type": "json"
     },
     "licences": {
       "type": "json"
     },
-    "awards": {
-      "type": "json"
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "company"
+    },
+    "similarCompanies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::company.company"
     }
   }
 }
