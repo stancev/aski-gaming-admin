@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepage_counters",
+  "info": {
+    "singularName": "homepage-counter",
+    "pluralName": "homepage-counters",
+    "displayName": "Homepage Counter"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Members": {
+      "type": "string"
+    },
+    "Reviews": {
+      "type": "string"
+    },
+    "Companies": {
+      "type": "string"
+    },
+    "Visitors": {
+      "type": "string"
+    }
+  }
+}
