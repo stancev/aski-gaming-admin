@@ -47,6 +47,7 @@ async function findOrCreateUser(linkedinData) {
           email: linkedinData.email,
           role: 1,
           confirmed: true,
+          provider: "local",
         },
       });
     }
